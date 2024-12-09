@@ -2,14 +2,17 @@ import { Text, TextInput, StyleSheet, Button} from 'react-native';
 import { useState } from 'react';
 import axios from 'axios';
 import { useSession } from '@/contexts/AuthContext';
-import { Link } from 'expo-router';
 
-export default function LoginForm()
+export default function RegistorForm()
 {
     const [form, setForm] = useState(
     {
+        full_name: "",
+        description: "",
         email: "",
-        password: ""
+        password: "",
+        phone: "",
+        //image_path: string;
     })
 
     const [error, setError] = useState("");
@@ -26,17 +29,18 @@ export default function LoginForm()
 
     const handlePress = () =>
     {
-        axios.post('https://ca-1-js.vercel.app/api/workers/login', 
+        axios.post('https://ca-1-js.vercel.app/api/workers/register', 
         {
+            full_name: form.full_name,
+            description: form.description,
             email: form.email,
-            password: form.password
+            password: form.password,
+            phone: form.phone,
         })
         .then(response =>
         {
             console.log(response.data.token)
             signIn(response.data.token);
-            <Link href={{pathname: '/(auth)/home',}}></Link>
-            console.log("fdsgs")
         })
         .catch(e =>
         {
@@ -46,6 +50,22 @@ export default function LoginForm()
 
     return(
         <>
+        <TextInput
+                style={styles.input}
+                placeholder='Full_name'
+                value={form.full_name}
+                onChange={handleChange}
+                id='full_name'
+            />
+
+            <TextInput
+                style={styles.input}
+                placeholder='Description'
+                value={form.description}
+                onChange={handleChange}
+                id='description'
+            />
+
             <TextInput
                 style={styles.input}
                 placeholder='Email'
@@ -60,6 +80,14 @@ export default function LoginForm()
                 value={form.password}
                 onChange={handleChange}
                 id='password'
+            />
+
+            <TextInput
+                style={styles.input}
+                placeholder='Phone'
+                value={form.phone}
+                onChange={handleChange}
+                id='phone'
             />
 
             <Text>{error}</Text>

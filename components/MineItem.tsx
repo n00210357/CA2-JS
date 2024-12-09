@@ -1,19 +1,19 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
-import { FestivalType } from '@/types';
+import { MineType } from '@/types';
 
 interface MyProps {
-    festival: FestivalType;
+    mine: MineType;
 }
 
-export default function FestivalItem({festival}: MyProps){
+export default function MineItem({mine}: MyProps){
     return (
         <View style={styles.item}>
             <Link href={{
-                pathname: '/festivals/[id]',
-                params: { id: festival._id }
-            }}><Text>{festival.title}</Text></Link>
-            <Text>{festival.city}</Text>
+                pathname: '/mines/[id]',
+                params: { id: mine._id }
+            }}><Text>{mine.name}</Text></Link>
+            <Text>{mine.manager_email}</Text>
         </View>
     );
 }

@@ -6,23 +6,23 @@ import { useLocalSearchParams } from 'expo-router';
 
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { FestivalType } from '@/types';
+import { MineType } from '@/types';
 
 
 export default function Tab() {
-  const [festival, setFestival] = useState<FestivalType | null>(null);
+  const [mine, setMine] = useState<MineType | null>(null);
   const { id } = useLocalSearchParams();
 
   useEffect(() => {
     
-    axios.get(`https://festivals-api.vercel.app/api/festivals/${id}`, {
+    axios.get(`https://ca-1-js.vercel.app/api/mines/${id}`, {
             headers: {
                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vQG1vLm1vIiwiZnVsbF9uYW1lIjoiTW8iLCJfaWQiOiI2NzI4ZjAzMWQ2YzdkYzAwMDhmNmY5ZjAiLCJpYXQiOjE3MzI2MTcwMTZ9.nUztWFux-E-PuU29Czr3WTEqA2PvlU0HYXPSngJ5920'
             }
         })
          .then(response => {
             console.log(response.data);
-            setFestival(response.data);
+            setMine(response.data);
          })
          .catch(e => {
             console.log(e);
@@ -30,12 +30,12 @@ export default function Tab() {
 
   }, [id]);
 
-  if(!festival) return <Text>Festival not found</Text>
+  if(!mine) return <Text>Mine not found</Text>
   
   return (
     <View style={styles.container}>
-        <Text>{festival.title}</Text>
-        <Text>{festival.city}</Text>
+        <Text>{mine.name}</Text>
+        <Text>{mine.manager_email}</Text>
     </View>
   );
 }
