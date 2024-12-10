@@ -1,8 +1,8 @@
 import LoginForm from '@/components/LoginForm';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, } from 'react-native'; //Button
 import { useSession } from '@/contexts/AuthContext';
 import { Link } from 'expo-router';
-
+import { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup} from "@/components/ui/button"
 export default function Tab() 
 {
   const { session, signOut } = useSession();
@@ -12,17 +12,15 @@ export default function Tab()
       <Text>Tab Home</Text>
 
           <Link href={{pathname: '/login',}}>
-            <Button
-              title="Login"
-              color="red"
-            />
+            <Button size="md" variant="solid" action="primary">
+              <ButtonText>Login</ButtonText>
+            </Button>
           </Link>
         
           <Link href={{pathname: '/registor',}}>
-            <Button
-              title="Registor"
-              color="red"
-            />
+            <Button size="md" variant="solid" action="primary">
+              <ButtonText>Registor</ButtonText>
+            </Button>
           </Link>
     </View>
   );
