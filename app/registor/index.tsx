@@ -1,6 +1,8 @@
-import LoginForm from '@/components/LoginForm';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import RegistorForm from '@/components/RegistorForm';
+import { View, Text, StyleSheet } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
+import { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup} from "@/components/ui/button"
+import { Link } from 'expo-router';
 
 export default function Tab() 
 {
@@ -9,21 +11,9 @@ export default function Tab()
   return (
     <View style={styles.container}>
       <Text>Tab Home</Text>
+      
+      <RegistorForm/>
 
-      {
-        (session) ? 
-        (
-          <Button
-            onPress={signOut}
-            title="Logout"
-            color="red"
-          />
-        ) 
-        : 
-        (
-          <LoginForm/>
-        )
-      }
     </View>
   );
 }

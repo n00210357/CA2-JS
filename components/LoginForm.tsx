@@ -1,5 +1,7 @@
-import { Text, TextInput, StyleSheet, Button} from 'react-native';
+import { Text, TextInput, StyleSheet } from 'react-native';
 import { useState } from 'react';
+import { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup} from "@/components/ui/button"
+import { Pressable } from '@/components/ui/pressable';
 import axios from 'axios';
 import { useSession } from '@/contexts/AuthContext';
 import { Link } from 'expo-router';
@@ -33,10 +35,7 @@ export default function LoginForm()
         })
         .then(response =>
         {
-            console.log(response.data.token)
             signIn(response.data.token);
-            <Link href={{pathname: '/(auth)/home',}}></Link>
-            console.log("fdsgs")
         })
         .catch(e =>
         {
@@ -64,11 +63,17 @@ export default function LoginForm()
 
             <Text>{error}</Text>
 
-            <Button
-                onPress={handlePress}
-                title="Submit"
-                color="red"
-            />
+            <Button>
+            <Pressable onPress={handlePress}>
+                <Text>Submit</Text>
+            </Pressable>
+            </Button>
+
+            <Link href={{pathname: '..',}}>
+                <Button size="md" variant="solid" action="primary">
+                    <ButtonText>back</ButtonText>
+                </Button>
+            </Link>
         </>
     )
 }

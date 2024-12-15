@@ -1,9 +1,10 @@
 import { createContext, useContext, PropsWithChildren } from 'react';
 import { useStorageState } from '@/hooks/useStorageState';
 import { IAuthContext } from '@/types';
-
+import { useRouter } from 'expo-router';
 
 const AuthContext = createContext<IAuthContext | null>(null);
+const router = useRouter();
 
 // this hook can be used to access the session info
 export function useSession() {
@@ -14,7 +15,7 @@ export function useSession() {
             throw new Error('useSession must be wrapped in a <SessionProvider>');
         }    
     }
-    
+
     return value as IAuthContext;
 }
 
@@ -25,7 +26,7 @@ export function SessionProvider(props: PropsWithChildren){
         <AuthContext.Provider
             value={{
                 signIn: (token) => {
-                    setSession(token);
+                    toHome(setSession, token)
                 },
                 signOut: () => {
                     setSession(null);
@@ -39,3 +40,8 @@ export function SessionProvider(props: PropsWithChildren){
     );
 }
 
+async function toHome(setSession: (value: string | null) => void, token: string)
+{
+    setSession(token)
+    router.push('../(tabs)/(auth)/home');
+}

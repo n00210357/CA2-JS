@@ -6,9 +6,12 @@ import { SessionProvider } from '@/contexts/AuthContext';
 export default function Layout() {
   return (
     <GluestackUIProvider mode="light"><SessionProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-      </SessionProvider></GluestackUIProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="registor/index" options={{ headerShown: false }} />
+        <Stack.Screen name="login/index" options={{ headerShown: false }} />
+      </Stack>
+    </SessionProvider></GluestackUIProvider>
   );
 }

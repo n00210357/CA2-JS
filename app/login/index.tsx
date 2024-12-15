@@ -1,7 +1,6 @@
-import RegistorForm from '@/components/RegistorForm';
+import LoginForm from '@/components/LoginForm';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
-import { Link } from 'expo-router';
 
 export default function Tab() 
 {
@@ -10,16 +9,22 @@ export default function Tab()
   return (
     <View style={styles.container}>
       <Text>Tab Home</Text>
+
+      {
+        (session) ? 
+        (
+          <Button
+            onPress={signOut}
+            title="Logout"
+            color="red"
+          />
+        ) 
+        : 
+        (
+          <LoginForm/>
+        )
+      }
       
-      <RegistorForm/>
-
-      <Link href={{pathname: '/..',}}>
-        <Button
-          title="Back"
-          color="blue"
-        />
-      </Link>
-
     </View>
   );
 }
