@@ -1,20 +1,20 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Link } from 'expo-router';
-import { MineType } from '@/types';
+import { MineralType } from '@/types';
 import { EyeIcon } from './ui/icon/index.web';
 import { Icon } from './ui/icon';
 
 interface MyProps {
-    mine: MineType;
+    mineral: MineralType;
 }
 
-export default function MineItem({mine}: MyProps){
+export default function MineralItem({mineral}: MyProps){
     return (
         <View style={styles.item}>
             <Link href={
             {
-                pathname: '/mines/[id]',
-                params: { id: mine._id }
+                pathname: '/minerals/[id]',
+                params: { id: mineral._id }
             }}>
 
             <View style={styles.bigBox}>
@@ -23,27 +23,13 @@ export default function MineItem({mine}: MyProps){
                 </View>
 
                 <View>
-                    <Text style={styles.headed}>{mine.name}</Text>
+                    <Text style={styles.headed}>{mineral.name}</Text>
 
                     <View style={styles.smallBox}>
-                        <Text style={styles.headed}>Managed</Text>
-                        <Text style={styles.standard}>{mine.manager_email}</Text>
+                        <Text style={styles.headed}>About the mineral</Text>
+                        <Text style={styles.standard}>{mineral.description}</Text>
                     </View>
 
-                    <View style={styles.smallBox}>
-                        <Text style={styles.headed}>Owned by</Text>
-                        <Text style={styles.standard}>{mine.company_name}</Text>
-                    </View>
-
-                    <View style={styles.smallBox}>
-                        <Text style={styles.headed}>Latitude</Text>
-                        <Text style={styles.standard}>{mine.latitude}</Text>
-                    </View>
-
-                    <View style={styles.smallBox}>
-                        <Text style={styles.headed}>Longitude</Text>
-                        <Text style={styles.standard}>{mine.longitude}</Text>
-                    </View>
                 </View>
             </View>
             </Link>
@@ -64,25 +50,27 @@ const styles = StyleSheet.create({
         fontSize: 14,
         maxWidth: 200,
         marginVertical: 0,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
 
     standard:
     {
         fontSize: 12,
-        maxWidth: 200,
         marginVertical: 5,
+        maxWidth: 200,
+        flex: 0,
+        flexWrap: 'wrap'
     },
 
     bigBox:
     {
         flex:1,
-        flexDirection:'row'
+        flexDirection:'row',
     },
 
     smallBox:
     {
-        flex:1
+        flex:1,
     },
 
     img:

@@ -2,15 +2,15 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import MineItem from '@/components/MineItem';
-import { MineType } from '@/types';
+import WorkerItem from '@/components/WorkerItem';
+import { WorkerType } from '@/types';
 
 export default function Tab() {
-  const [mines, setFestivals] = useState([]);
+  const [workers, setFestivals] = useState([]);
 
   useEffect(() => {
     
-    axios.get('https://ca-1-js.vercel.app/api/mines')
+    axios.get('https://ca-1-js.vercel.app/api/workers')
          .then(response => {
           console.log(response.data);
           setFestivals(response.data);
@@ -21,15 +21,15 @@ export default function Tab() {
 
   }, []);
 
-  if(mines.length === 0) return <Text>No Mines found</Text>
+  if(workers.length === 0) return <Text>No Workers found</Text>
   
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <FlatList
-          data={mines}
-          renderItem={({item}) => <MineItem mine={item} />}
-          keyExtractor={(mine: MineType) => mine._id}
+          data={workers}
+          renderItem={({item}) => <WorkerItem worker={item} />}
+          keyExtractor={(worker: WorkerType) => worker._id}
         />
       </SafeAreaView>
     </SafeAreaProvider>
@@ -42,5 +42,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
 });

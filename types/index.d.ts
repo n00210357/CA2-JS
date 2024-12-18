@@ -4,7 +4,7 @@ export interface CompanyType
     name: string;
     description: string;
     ceo_email: string;
-    image_path: string;
+    image_path: string | null;
 }
 
 export interface MineralType 
@@ -12,7 +12,7 @@ export interface MineralType
     _id: string;
     name: string;
     description: string;
-    image_path: string;
+    image_path: string | null;
 }
 
 export interface MineType 
@@ -23,7 +23,23 @@ export interface MineType
     longitude: string;
     manager_email: string;
     company_name: string;
-    image_path: string;
+    image_path: string | null;
+}
+
+export interface Work_hourType 
+{
+    _id: string;
+    start: string;
+    end: string;
+    mine_id: string;
+    worker_email: string;
+}
+
+export interface Mineral_mineType 
+{
+    _id: string;
+    minde_id: string;
+    mineral_id:string;
 }
 
 export interface WorkerType 
@@ -34,7 +50,7 @@ export interface WorkerType
     email: string;
     password: string;
     phone: string;
-    image_path: string;
+    image_path: string | null;
 }
 
 export interface IAuthContext 
@@ -44,3 +60,25 @@ export interface IAuthContext
     session?: string | null;
     isLoading: boolean;
 }
+
+export interface CompanyTypeID extends CompanyType {
+    _id: string;
+}
+
+export interface MineralTypeID extends MineralType {
+    _id: string;
+}
+
+export interface MineTypeID extends MineType {
+    _id: string;
+}
+
+export interface Work_hourTypeID extends Work_hourType {
+    _id: string;
+}
+
+export interface Mineral_mineTypeID extends Mineral_mineType {
+    _id: string;
+}
+
+export type IResponseType = CompanyTypeID | MineralTypeID | MineTypeID | Work_hourTypeID | Mineral_mineTypeID

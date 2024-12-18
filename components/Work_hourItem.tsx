@@ -1,20 +1,20 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Link } from 'expo-router';
-import { MineType } from '@/types';
+import { Work_hourType } from '@/types';
 import { EyeIcon } from './ui/icon/index.web';
 import { Icon } from './ui/icon';
 
 interface MyProps {
-    mine: MineType;
+    work_hour: Work_hourType;
 }
 
-export default function MineItem({mine}: MyProps){
+export default function Work_hourItem({work_hour}: MyProps){
     return (
         <View style={styles.item}>
             <Link href={
             {
-                pathname: '/mines/[id]',
-                params: { id: mine._id }
+                pathname: '/(auth)/(tabs)/work_hours/[id]',
+                params: { id: work_hour._id }
             }}>
 
             <View style={styles.bigBox}>
@@ -23,26 +23,21 @@ export default function MineItem({mine}: MyProps){
                 </View>
 
                 <View>
-                    <Text style={styles.headed}>{mine.name}</Text>
+                    <Text style={styles.headed}>{work_hour.worker_email}</Text>
 
                     <View style={styles.smallBox}>
-                        <Text style={styles.headed}>Managed</Text>
-                        <Text style={styles.standard}>{mine.manager_email}</Text>
+                        <Text style={styles.headed}>At</Text>
+                        <Text style={styles.standard}>{work_hour.mine_id}</Text>
                     </View>
 
                     <View style={styles.smallBox}>
-                        <Text style={styles.headed}>Owned by</Text>
-                        <Text style={styles.standard}>{mine.company_name}</Text>
+                        <Text style={styles.headed}>Start</Text>
+                        <Text style={styles.standard}>{work_hour.start}</Text>
                     </View>
 
                     <View style={styles.smallBox}>
-                        <Text style={styles.headed}>Latitude</Text>
-                        <Text style={styles.standard}>{mine.latitude}</Text>
-                    </View>
-
-                    <View style={styles.smallBox}>
-                        <Text style={styles.headed}>Longitude</Text>
-                        <Text style={styles.standard}>{mine.longitude}</Text>
+                        <Text style={styles.headed}>End</Text>
+                        <Text style={styles.standard}>{work_hour.end}</Text>
                     </View>
                 </View>
             </View>

@@ -37,6 +37,7 @@ export function useStorageState(key: string): UseStateHook<string> {
   // Public
   const [state, setState] = useAsyncState<string>();
 
+
   // Get
   useEffect(() => {
     if (Platform.OS === 'web') {

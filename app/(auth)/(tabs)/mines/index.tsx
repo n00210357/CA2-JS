@@ -4,6 +4,9 @@ import axios from 'axios';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import MineItem from '@/components/MineItem';
 import { MineType } from '@/types';
+import { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup} from "@/components/ui/button"
+import { Pressable } from '@/components/ui/pressable';
+import { Link } from 'expo-router';
 
 export default function Tab() {
   const [mines, setFestivals] = useState([]);
@@ -21,9 +24,27 @@ export default function Tab() {
 
   }, []);
 
-  if(mines.length === 0) return <Text>No Mines found</Text>
+  if(mines.length === 0) 
+      return ( 
+      <View style={styles.but}>
+        <Link href={{pathname: '/(auth)/(tabs)/mines/create'}}>
+          <Button size="md" variant="solid" action="primary">
+            <ButtonText>Create</ButtonText>
+          </Button>
+        </Link>
+    
+        <Text>No Mines found</Text>
+      </View>
+      )
   
   return (
+    <View style={styles.but}>
+        <Link href={{pathname: '/(auth)/(tabs)/mines/create'}}>
+            <Button size="md" variant="solid" action="primary">
+              <ButtonText>Create</ButtonText>
+          </Button>
+        </Link>
+
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <FlatList
@@ -33,6 +54,7 @@ export default function Tab() {
         />
       </SafeAreaView>
     </SafeAreaProvider>
+    </View>
   );
 }
 
@@ -43,4 +65,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   
+  but: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

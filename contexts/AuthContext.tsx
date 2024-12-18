@@ -43,5 +43,5 @@ export function SessionProvider(props: PropsWithChildren){
 async function toHome(setSession: (value: string | null) => void, token: string)
 {
     setSession(token)
-    router.push('../(tabs)/(auth)/home');
+    router.push('../(auth)/(tabs)/home');
 }
