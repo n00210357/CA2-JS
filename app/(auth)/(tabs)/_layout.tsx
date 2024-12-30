@@ -56,6 +56,34 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
+        name="minerals/create"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="mines/create"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="companies/create"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="work_hours/create"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
         name="mines/[id]/index"
         options={{
           href: null

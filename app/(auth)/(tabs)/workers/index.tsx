@@ -6,14 +6,14 @@ import WorkerItem from '@/components/WorkerItem';
 import { WorkerType } from '@/types';
 
 export default function Tab() {
-  const [workers, setFestivals] = useState([]);
+  const [workers, setWorkers] = useState([]);
 
   useEffect(() => {
     
     axios.get('https://ca-1-js.vercel.app/api/workers')
          .then(response => {
           console.log(response.data);
-          setFestivals(response.data);
+          setWorkers(response.data);
          })
          .catch(e => {
           console.log(e);
