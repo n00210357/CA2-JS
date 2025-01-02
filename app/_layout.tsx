@@ -12,6 +12,7 @@ export default function Layout() {
       <Stack.Screen name="registor/index" options={{ headerShown: false }} />
       <Stack.Screen name="login/index" options={{ headerShown: false }} />
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)/(tabs)/work_hours/create" options={{ headerShown: false }} />
     </Stack>
   </SessionProvider></GluestackUIProvider>
   );

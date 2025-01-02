@@ -1,13 +1,10 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import { useLocalSearchParams } from 'expo-router';
-
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-
 import { Work_hourType } from '@/types';
-
+import { Button, ButtonText} from "@/components/ui/button"
+import { Link } from 'expo-router';
 
 export default function Tab() {
   const [work_hour, setWork_hour] = useState<Work_hourType | null>(null);
@@ -34,8 +31,30 @@ export default function Tab() {
   
   return (
     <View style={styles.container}>
-        <Text>{work_hour.start}</Text>
-        <Text>{work_hour.end}</Text>
+      <View>
+        <Link href={
+            {
+                pathname: '/work_hours/[id]/edit',
+                params: { id: work_hour._id }
+            }}>
+          <Button size="md" variant="solid" action="primary">
+            <ButtonText>Edit</ButtonText>
+          </Button>
+        </Link>
+
+        <Link href={
+            {
+                pathname: '/work_hours/[id]/delete',
+                params: { id: work_hour._id }
+            }}>
+          <Button size="md" variant="solid" action="primary">
+            <ButtonText>Delete</ButtonText>
+          </Button>
+        </Link>
+      </View>
+
+      <Text>{work_hour.start}</Text>
+      <Text>{work_hour.end}</Text>
     </View>
   );
 }

@@ -4,8 +4,7 @@ import axios from 'axios';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import CompanyItem from '@/components/CompanyItem';
 import { CompanyType } from '@/types';
-import { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup} from "@/components/ui/button"
-import { Pressable } from '@/components/ui/pressable';
+import { Button, ButtonText } from "@/components/ui/button"
 import { Link } from 'expo-router';
 
 export default function Tab() {

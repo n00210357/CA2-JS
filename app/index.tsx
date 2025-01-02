@@ -1,12 +1,8 @@
-import LoginForm from '@/components/LoginForm';
 import { View, Text, StyleSheet, } from 'react-native'; //Button
-import { useSession } from '@/contexts/AuthContext';
 import { Link } from 'expo-router';
-import { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup} from "@/components/ui/button"
+import { Button, ButtonText} from "@/components/ui/button"
 export default function Tab() 
 {
-  const { session, signOut } = useSession();
-
   return (
     <View style={styles.container}>
       <Text>Tab Home</Text>

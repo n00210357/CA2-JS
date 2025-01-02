@@ -1,13 +1,10 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import { useLocalSearchParams } from 'expo-router';
-
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-
 import { CompanyType } from '@/types';
-
+import { Button, ButtonText } from "@/components/ui/button"
+import { Link } from 'expo-router';
 
 export default function Tab() {
   const [company, setCompany] = useState<CompanyType | null>(null);
@@ -34,6 +31,28 @@ export default function Tab() {
   
   return (
     <View style={styles.container}>
+      <View>
+        <Link href={
+            {
+                pathname: '/companies/[id]/edit',
+                params: { id: company._id }
+            }}>
+          <Button size="md" variant="solid" action="primary">
+            <ButtonText>Edit</ButtonText>
+          </Button>
+        </Link>
+
+        <Link href={
+            {
+                pathname: '/companies/[id]/delete',
+                params: { id: company._id }
+            }}>
+          <Button size="md" variant="solid" action="primary">
+            <ButtonText>Delete</ButtonText>
+          </Button>
+        </Link>
+      </View>
+
         <Text>{company.name}</Text>
         <Text>{company.description}</Text>
     </View>

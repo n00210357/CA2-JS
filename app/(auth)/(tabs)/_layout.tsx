@@ -117,6 +117,62 @@ export default function TabLayout() {
           href: null
          }}
       />
+
+      <Tabs.Screen
+        name="work_hours/[id]/edit"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="work_hours/[id]/delete"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="minerals/[id]/edit"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="minerals/[id]/delete"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="mines/[id]/edit"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="mines/[id]/delete"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="companies/[id]/edit"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="companies/[id]/delete"
+        options={{
+          href: null
+         }}
+      />
     </Tabs>
   );
 }

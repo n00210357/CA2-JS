@@ -4,7 +4,7 @@ export interface CompanyType
     name: string;
     description: string;
     ceo_email: string;
-    image_path: string | null;
+    image_path: string | undefined;
 }
 
 export interface MineralType 
@@ -12,7 +12,7 @@ export interface MineralType
     _id: string;
     name: string;
     description: string;
-    image_path: string | null;
+    image_path: string | undefined;
 }
 
 export interface MineType 
@@ -23,7 +23,7 @@ export interface MineType
     longitude: string;
     manager_email: string;
     company_name: string;
-    image_path: string | null;
+    image_path: string | undefined;
 }
 
 export interface Work_hourType 
@@ -50,7 +50,7 @@ export interface WorkerType
     email: string;
     password: string;
     phone: string;
-    image_path: string | null;
+    image_path: string | undefined;
 }
 
 export interface IAuthContext 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
 import useAPI from '@/hooks/useAPI'
 import { useRouter } from 'expo-router';
@@ -30,20 +30,14 @@ export default function Page() {
                 Authorization: `Bearer ${session}`
             }
         }, (data) => {
-            router.push(`/minerals/${data._id}`);
+            router.push(`/minerals`);
         });
-
-        // console.log(data);
-
-        // if(data && loading === false){
-        //     router.push(`/minerals/${data._id}`);
-        // }
     }
 
     if(loading === true) return <Text>Loading API...</Text>
     
     return (
-        <>
+        <View>
             <Text>Name</Text>
             <TextInput
                 style={styles.input}
@@ -69,7 +63,7 @@ export default function Page() {
                 title="Submit"
                 color="#841584"
             />
-        </>
+        </View>
     );
 }
 
