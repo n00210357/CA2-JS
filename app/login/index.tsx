@@ -1,5 +1,5 @@
 import LoginForm from '@/components/LoginForm';
-import { View, Text, StyleSheet } from 'react-native';
+import { Image, View, Text, StyleSheet } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
 import { Button} from "@/components/ui/button"
 import { Pressable } from '@/components/ui/pressable';
@@ -13,23 +13,30 @@ export default function Tab()
 
   return (
     <View style={styles.container}>
-      <Text>Tab Home</Text>
+      <Image style={styles.image} source={require('../../assets/images/icon.png')}>
+      </Image>
+      
+      <Text style={styles.butText} >Login</Text>
 
       {
         (session) ? 
         (
           <View>
-          <Button>
-            <Pressable onPress={home}>
-              <Text>Home Page</Text>
-            </Pressable>
-          </Button>          
+            <View style={styles.border}>
+              <Button style={styles.startBut}>
+                <Pressable onPress={home}>
+                  <Text style={styles.butText2} >Home Page</Text>
+                </Pressable>
+              </Button>
+            </View>
 
-          <Button>
-            <Pressable onPress={signOut}>
-                <Text>Logout</Text>
-            </Pressable>
-          </Button>    
+            <View style={styles.border}>
+            <Button style={styles.startBut}>
+                <Pressable onPress={signOut}>
+                  <Text style={styles.butText2} >Logout</Text>
+                </Pressable>
+              </Button>  
+            </View> 
           </View>      
         ) 
         : 
@@ -48,9 +55,53 @@ function home()
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: 
+  {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  startBut:
+  {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 60,
+  },
+
+  butText:
+  {
+    fontSize: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
+  },
+
+  butText2:
+  {
+    fontSize: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
+    color: "white"
+  },
+  
+  border:
+  {
+    borderWidth:  5,
+    borderStyle: "solid",
+    borderRadius: 12,
+    borderColor: "black",
+    marginVertical: 10,
+  },
+
+  image:
+  {
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 10,
+    minHeight: 10,
+    maxWidth: 300,
+    maxHeight: 300,
+  }
 });

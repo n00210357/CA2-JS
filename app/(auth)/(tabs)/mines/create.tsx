@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
 import useAPI from '@/hooks/useAPI'
 import { useRouter } from 'expo-router';
+import { Button } from "@/components/ui/button"
+import { Pressable } from '@/components/ui/pressable';
 
 export default function Page() {
     const router = useRouter();
@@ -41,7 +43,7 @@ export default function Page() {
     
     return (
         <View>
-            <Text>Name</Text>
+            <Text style={styles.bigText}>Name</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Name'
@@ -50,7 +52,7 @@ export default function Page() {
                 id='name'
             />
 
-            <Text>Latitude</Text>
+            <Text style={styles.bigText}>Latitude</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Latitude'
@@ -59,7 +61,7 @@ export default function Page() {
                 id='latitude'
             />
 
-            <Text>Longitude</Text>
+            <Text style={styles.bigText}>Longitude</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Longitude'
@@ -68,7 +70,7 @@ export default function Page() {
                 id='longitude'
             />
 
-            <Text>Managers email</Text>
+            <Text style={styles.bigText}>Managers email</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Managers email'
@@ -77,7 +79,7 @@ export default function Page() {
                 id='manager_email'
             />
 
-            <Text>Company</Text>
+            <Text style={styles.bigText}>Company</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Company'
@@ -88,20 +90,66 @@ export default function Page() {
 
             <Text>{error}</Text>
 
-            <Button 
-                onPress={handleSubmit}
-                title="Submit"
-                color="#841584"
-            />
+            <View style={styles.container}>
+                <View style={styles.border}>
+                    <Button style={styles.startBut}>
+                        <Pressable onPress={handleSubmit}>
+                            <Text style={styles.butText2} >    Create    </Text>
+                        </Pressable>
+                    </Button>
+                </View>
+            </View> 
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    input: {
+    container: 
+    {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    bigText:
+    {
+        fontSize: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: "bold", 
+    },
+
+    input: 
+    {
         height: 40,
         margin: 10,
         borderWidth: 1,
         padding: 10
-    }
+    },
+
+    startBut:
+    {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 40,
+        paddingHorizontal: 60,
+    },
+
+    butText2:
+    {
+        fontSize: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: 'bold',
+        color: "white"
+    },
+
+    border:
+    {
+        borderWidth:  5,
+        borderStyle: "solid",
+        borderRadius: 12,
+        borderColor: "black",
+        marginVertical: 10,
+    },
 });

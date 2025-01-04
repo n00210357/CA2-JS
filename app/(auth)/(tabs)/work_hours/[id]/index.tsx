@@ -55,6 +55,8 @@ export default function Tab() {
 
       <Text>{work_hour.start}</Text>
       <Text>{work_hour.end}</Text>
+      <Text>{work_hour.mine_id}</Text>
+      <Text>{work_hour.worker_email}</Text>
     </View>
   );
 }

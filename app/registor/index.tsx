@@ -1,12 +1,14 @@
 import RegistorForm from '@/components/RegistorForm';
-import { View, Text, StyleSheet } from 'react-native';
-import { useSession } from '@/contexts/AuthContext';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 export default function Tab() 
 {
   return (
     <View style={styles.container}>
-      <Text>Tab Home</Text>
+      <Image style={styles.image} source={require('../../assets/images/icon.png')}>
+      </Image>
+
+      <Text style={styles.Text}>Register</Text>
       
       <RegistorForm/>
 
@@ -15,9 +17,28 @@ export default function Tab()
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: 
+  {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  Text:
+  {
+    fontSize: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
+  },
+
+  image:
+  {
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 10,
+    minHeight: 10,
+    maxWidth: 200,
+    maxHeight: 200,
+  }
 });

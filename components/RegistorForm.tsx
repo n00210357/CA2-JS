@@ -1,6 +1,6 @@
-import { Text, TextInput, StyleSheet} from 'react-native';
+import { View, Text, TextInput, StyleSheet} from 'react-native';
 import { useState } from 'react';
-import { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Pressable } from '@/components/ui/pressable';
 import axios from 'axios';
 import { useSession } from '@/contexts/AuthContext';
@@ -62,15 +62,18 @@ export default function RegistorForm()
     }
 
     return(
-        <>
-        <TextInput
+        <View style={styles.container}>
+            <Text style={styles.bigText} >Full name</Text>
+            <TextInput
                 style={styles.input}
                 placeholder='Full_name'
                 value={form.full_name}
                 onChange={handleChange}
                 id='full_name'
             />
+            <Text style={styles.smallText} >should be your full name</Text>
 
+            <Text style={styles.bigText} >Description</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Description'
@@ -78,7 +81,9 @@ export default function RegistorForm()
                 onChange={handleChange}
                 id='description'
             />
+            <Text style={styles.smallText} >Age, skill set, etc</Text>
 
+            <Text style={styles.bigText} >Email</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Email'
@@ -86,7 +91,9 @@ export default function RegistorForm()
                 onChange={handleChange}
                 id='email'
             />
+            <Text style={styles.smallText} >An email can only be used once</Text>
 
+            <Text style={styles.bigText} >Password</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Password'
@@ -94,7 +101,9 @@ export default function RegistorForm()
                 onChange={handleChange}
                 id='password'
             />
+            <Text style={styles.smallText} >Should be 6 or more characters</Text>
 
+            <Text style={styles.bigText} >Phone number</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Phone'
@@ -102,30 +111,79 @@ export default function RegistorForm()
                 onChange={handleChange}
                 id='phone'
             />
+            <Text style={styles.smallText} >Optional</Text>
 
             <Text>{error}</Text>
 
-            <Button>
-            <Pressable onPress={handlePress}>
-                <Text>Submit</Text>
-            </Pressable>
-            </Button>
+            <View style={styles.border}>
+                <Button style={styles.startBut}>
+                    <Pressable onPress={handlePress}>
+                        <Text style={styles.text}>Submit</Text>
+                    </Pressable>
+                </Button>
+            </View>
 
-            <Link href={{pathname: '..',}}>
-                <Button size="md" variant="solid" action="primary">
-                  <ButtonText>back</ButtonText>
+            <Link href={{pathname: '..',}} style={styles.border}>
+                <Button style={styles.startBut} variant="solid" action="primary">
+                  <Text style={styles.text}>  back  </Text>
                 </Button>
             </Link>
-        </>
+        </View>
     )
 }
 
 const styles = StyleSheet.create(
 {
+    container: 
+    {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
     input:
     {
         height: 40,
-        margin: 10,
         borderWidth: 1,
-    }
+    },
+
+    smallText:
+    {
+        fontSize: 10,
+        fontWeight: 300, 
+        marginBottom: 10
+    },
+
+    bigText:
+    {
+        fontSize: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: "bold", 
+    },
+
+    startBut:
+    {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 40,
+    },
+
+    text:
+    {
+        fontSize: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: 'bold',
+        color: "white"
+    },
+
+    border:
+    {
+        borderWidth:  5,
+        borderStyle: "solid",
+        borderRadius: 12,
+        borderColor: "black",
+        marginVertical: 10,
+    },
 });

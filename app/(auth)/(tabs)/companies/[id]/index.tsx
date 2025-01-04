@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocalSearchParams } from 'expo-router';
@@ -9,7 +9,7 @@ import { Link } from 'expo-router';
 export default function Tab() {
   const [company, setCompany] = useState<CompanyType | null>(null);
   const { id } = useLocalSearchParams();
-
+  
   useEffect(() => {
     
     axios.get(`https://ca-1-js.vercel.app/api/companies/${id}`, {
@@ -53,16 +53,76 @@ export default function Tab() {
         </Link>
       </View>
 
-        <Text>{company.name}</Text>
-        <Text>{company.description}</Text>
+      <Image style={styles.image} source={{
+          uri: company.image_path,
+        }}>
+      </Image>
+
+      <Text style={styles.butText2}>{company.name}</Text>
+
+      <Text>{company.description}</Text>
+
+      <Text>{company.ceo_email}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: 
+  {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  bigText:
+  {
+    fontSize: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: "bold", 
+  },
+
+  input: 
+  {
+    height: 40,
+    margin: 10,
+    borderWidth: 1,
+    padding: 10
+  },
+
+  startBut:
+  {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 40,
+    paddingHorizontal: 60,
+  },
+
+  butText2:
+  {
+    fontSize: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
+  },
+
+  border:
+  {
+    borderWidth:  5,
+    borderStyle: "solid",
+    borderRadius: 12,
+    borderColor: "black",
+    marginVertical: 10,
+    },
+
+  image:
+  {
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 10,
+    minHeight: 10,
+    maxWidth: 300,
+    maxHeight: 300,
+  }
 });

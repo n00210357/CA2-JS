@@ -37,14 +37,13 @@ export default function Tab() {
   )
   
   return (
-    <View style={styles.but}>
+    <SafeAreaProvider style={styles.but}>
         <Link href={{pathname: '/(auth)/(tabs)/work_hours/create'}}>
             <Button size="md" variant="solid" action="primary">
               <ButtonText>Create</ButtonText>
           </Button>
         </Link>
 
-    <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <FlatList
           data={work_hours}
@@ -53,7 +52,6 @@ export default function Tab() {
         />
       </SafeAreaView>
     </SafeAreaProvider>
-    </View>
   );
 }
 

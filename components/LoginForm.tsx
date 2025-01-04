@@ -1,6 +1,6 @@
-import { Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useState } from 'react';
-import { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Pressable } from '@/components/ui/pressable';
 import axios from 'axios';
 import { useSession } from '@/contexts/AuthContext';
@@ -44,7 +44,8 @@ export default function LoginForm()
     }
 
     return(
-        <>
+        <View>
+            <Text style={styles.bigText} >Email</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Email'
@@ -53,6 +54,7 @@ export default function LoginForm()
                 id='email'
             />
 
+            <Text style={styles.bigText} >Password</Text>
             <TextInput
                 style={styles.input}
                 placeholder='Password'
@@ -63,27 +65,63 @@ export default function LoginForm()
 
             <Text>{error}</Text>
 
-            <Button>
-            <Pressable onPress={handlePress}>
-                <Text>Submit</Text>
-            </Pressable>
-            </Button>
+            <View style={styles.border}>
+                <Button style={styles.startBut}>
+                    <Pressable onPress={handlePress}>
+                        <Text style={styles.butText2} >Submit</Text>
+                    </Pressable>
+                </Button>
+            </View>
 
-            <Link href={{pathname: '..',}}>
-                <Button size="md" variant="solid" action="primary">
-                    <ButtonText>back</ButtonText>
+            <Link href={{pathname: '..',}} style={styles.border}>
+                <Button style={styles.startBut} variant="solid" action="primary">
+                    <Text style={styles.butText2} >   back   </Text>
                 </Button>
             </Link>
-        </>
+        </View>
     )
 }
 
 const styles = StyleSheet.create(
 {
+    startBut:
+    {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 60,
+        paddingHorizontal: 60,
+    },
+
+    bigText:
+    {
+        fontSize: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: "bold", 
+    },
+
+    butText2:
+    {
+        fontSize: 64,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: 'bold',
+        color: "white"
+    },
+
     input:
     {
         height: 40,
         margin: 10,
         borderWidth: 1,
-    }
+    },
+
+    border:
+    {
+        borderWidth:  5,
+        borderStyle: "solid",
+        borderRadius: 12,
+        borderColor: "black",
+        marginVertical: 10,
+    },
 });
