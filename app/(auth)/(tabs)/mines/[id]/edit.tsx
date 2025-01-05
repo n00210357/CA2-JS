@@ -9,10 +9,12 @@ import { useLocalSearchParams } from 'expo-router';
 import { Button } from "@/components/ui/button"
 import { Pressable } from '@/components/ui/pressable';
 
+//the mines edit page
 export default function Page() {
     const [mine, setMine] = useState<MineType | null>(null);
     const { id } = useLocalSearchParams();
     
+    //grabs the mine
     useEffect(() => 
     { 
         axios.get(`https://ca-1-js.vercel.app/api/mines/${id}`, {
@@ -52,6 +54,7 @@ export default function Page() {
         }));
     }
 
+    //edits the mine
     const handleSubmit = () => {
         console.log(form);
 

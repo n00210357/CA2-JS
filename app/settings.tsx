@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-
+//the settings
 export default function Tab() {
   return (
     <View style={styles.container}>

@@ -22,6 +22,7 @@ export default function Page() {
 
     useEffect(() => 
     { 
+        //grabs a work hour
         axios.get(`https://ca-1-js.vercel.app/api/work_hours/${id}`, {
             headers: {
                 Authorization: `Bearer ${session}`
@@ -37,6 +38,7 @@ export default function Page() {
     
       }, [id]);
 
+      //filters work hours worker
     useEffect(() => {    
         axios.get('https://ca-1-js.vercel.app/api/workers')
         .then(response => {
@@ -47,6 +49,7 @@ export default function Page() {
         });  
     }, []);
         
+    //filters a work hours mine
     useEffect(() => {    
         axios.get('https://ca-1-js.vercel.app/api/mines')
         .then(response => {
@@ -62,6 +65,7 @@ export default function Page() {
 
     const { data, loading, error } = useAPI();
 
+    //deletes the work hour
     const handleSubmit = () => {
         axios.delete(`https://ca-1-js.vercel.app/api/work_hours/${id}`,{
             headers: {
@@ -99,6 +103,7 @@ export default function Page() {
           });
         }
 
+        //the work hour warning
     return (
         <SafeAreaProvider style={styles.container}>
             <Text style={styles.text}>Are you sure you want to delete this</Text>
@@ -148,6 +153,7 @@ export default function Page() {
     );
 }
             
+//work hour styles
             const styles = StyleSheet.create({
                 sides: 
                 {

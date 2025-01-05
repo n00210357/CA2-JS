@@ -10,6 +10,7 @@ import { Link } from 'expo-router';
 export default function Tab() {
   const [minerals, setFestivals] = useState([]);
 
+  //grabs the minerals
   useEffect(() => {
     
     axios.get('https://ca-1-js.vercel.app/api/minerals')

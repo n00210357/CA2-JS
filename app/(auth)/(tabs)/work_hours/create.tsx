@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router';
 import { Button } from "@/components/ui/button"
 import { Pressable } from '@/components/ui/pressable';
 
+//the create work hours page
 export default function Page() {
     const router = useRouter();
     const { session } = useSession();
@@ -19,6 +20,7 @@ export default function Page() {
 
     const { postRequest, data, loading, error } = useAPI();
 
+    //grabs each new point
     const handleChange = (e: any) => {
         setForm(prevState => ({
             ...prevState,
@@ -26,6 +28,7 @@ export default function Page() {
         }));
     }
 
+    //saves the new data
     const handleSubmit = () => {
         console.log(form);
 
@@ -40,6 +43,7 @@ export default function Page() {
 
     if(loading === true) return <Text>Loading API...</Text>
     
+    //create work hour page
     return (
         <View>
             <Text style={styles.bigText}>Starting</Text>
@@ -93,6 +97,7 @@ export default function Page() {
     );
 }
 
+//the work hours styles
 const styles = StyleSheet.create({
     container: 
     {

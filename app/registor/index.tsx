@@ -1,6 +1,7 @@
 import RegistorForm from '@/components/RegistorForm';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
+//the registor pages
 export default function Tab() 
 {
   return (
@@ -16,6 +17,7 @@ export default function Tab()
   );
 }
 
+//the registor styles
 const styles = StyleSheet.create({
   container: 
   {

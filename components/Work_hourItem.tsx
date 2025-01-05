@@ -8,6 +8,7 @@ interface MyProps {
     work_hour: Work_hourType;
 }
 
+//the work hour item
 export default function Work_hourItem({work_hour}: MyProps){
     return (
         <View style={styles.item}>
@@ -46,6 +47,7 @@ export default function Work_hourItem({work_hour}: MyProps){
     );
 }
 
+//the styles
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#eaeaea',

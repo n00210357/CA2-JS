@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useSession } from '@/contexts/AuthContext';
 import { Link } from 'expo-router';
 
+//the registor form
 export default function RegistorForm()
 {
     const [form, setForm] = useState(
@@ -132,6 +133,7 @@ export default function RegistorForm()
     )
 }
 
+//the styles
 const styles = StyleSheet.create(
 {
     container: 

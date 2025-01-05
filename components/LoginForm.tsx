@@ -43,6 +43,7 @@ export default function LoginForm()
         })
     }
 
+    //the login form
     return(
         <View>
             <Text style={styles.bigText} >Email</Text>
@@ -82,6 +83,7 @@ export default function LoginForm()
     )
 }
 
+//the styles
 const styles = StyleSheet.create(
 {
     startBut:

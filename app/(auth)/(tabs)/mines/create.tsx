@@ -103,6 +103,7 @@ export default function Page() {
     );
 }
 
+//the mines styles
 const styles = StyleSheet.create({
     container: 
     {

@@ -11,6 +11,7 @@ interface MyProps {
     mineral_mine: Mineral_mineType;
 }
 
+//the mineral mines
 export default function Mineral_mineItem({mineral_mine}: MyProps){
     const [mineral_mined, setMineral_mine] = useState<MineralType | null>(null);
     const [minerals, setMinerals] = useState([]);
@@ -106,6 +107,7 @@ export default function Mineral_mineItem({mineral_mine}: MyProps){
     );
 }
 
+//the styles
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#eaeaea',

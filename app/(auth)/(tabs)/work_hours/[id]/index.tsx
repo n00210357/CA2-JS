@@ -17,8 +17,8 @@ export default function Tab() {
   let [work] = useState([]);
   let [min] = useState([]);
 
+  //grabs a work hour
   useEffect(() => {
-    
     axios.get(`https://ca-1-js.vercel.app/api/work_hours/${id}`, {
             headers: {
                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vQG1vLm1vIiwiZnVsbF9uYW1lIjoiTW8iLCJfaWQiOiI2NzI4ZjAzMWQ2YzdkYzAwMDhmNmY5ZjAiLCJpYXQiOjE3MzI2MTcwMTZ9.nUztWFux-E-PuU29Czr3WTEqA2PvlU0HYXPSngJ5920'
@@ -33,6 +33,7 @@ export default function Tab() {
 
   }, [id]);
 
+  //filters through all the workers
   useEffect(() => {    
           axios.get('https://ca-1-js.vercel.app/api/workers')
           .then(response => {
@@ -42,7 +43,8 @@ export default function Tab() {
             console.log(e);
           });  
         }, []);
-  
+        
+        //filter through all the mine
       useEffect(() => {    
           axios.get('https://ca-1-js.vercel.app/api/mines')
           .then(response => {
@@ -58,6 +60,7 @@ export default function Tab() {
 
   if(!work_hours) return <Text>work hours not found</Text>
   
+  //grabs the work hour worker
   if (work_hours != null && workers != null)
     {
         workers.forEach(minera => {
@@ -69,6 +72,7 @@ export default function Tab() {
         });
     }
 
+    //grabs the work hour mine
     if (work_hours != null && mines != null)
     {
       mines.forEach(minera => {
@@ -79,6 +83,7 @@ export default function Tab() {
       });
     }
 
+    //a work hour
   return (
         <SafeAreaProvider style={styles.container}>
           <View style={styles.sides}>
@@ -127,6 +132,7 @@ export default function Tab() {
       );
     }
     
+    //a work hour style
     const styles = StyleSheet.create({
       sides: 
       {

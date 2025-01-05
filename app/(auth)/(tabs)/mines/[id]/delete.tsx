@@ -20,6 +20,7 @@ export default function Page() {
     let [ceo] = useState([]);
     let [comp] = useState([]);
 
+    //grabs the mine
     useEffect(() => 
     { 
         axios.get(`https://ca-1-js.vercel.app/api/mines/${id}`, {
@@ -37,6 +38,7 @@ export default function Page() {
     
       }, [id]);
 
+      //grabs the workers
       useEffect(() => {    
           axios.get('https://ca-1-js.vercel.app/api/workers')
           .then(response => {
@@ -48,6 +50,7 @@ export default function Page() {
           });  
         }, []);
       
+        //grabs the companies
         useEffect(() => {    
           axios.get('https://ca-1-js.vercel.app/api/companies')
           .then(response => {
@@ -64,6 +67,7 @@ export default function Page() {
 
     const { data, loading, error } = useAPI();
 
+    //deletes the mine
     const handleSubmit = () => {
         axios.delete(`https://ca-1-js.vercel.app/api/mines/${id}`,{
             headers: {
@@ -78,6 +82,7 @@ export default function Page() {
 
     ceo = []
 
+    //grabs the mines manager
     workers.forEach(wor => 
     {
         if (mine.manager_email.toLowerCase() == wor["email"])
@@ -88,6 +93,7 @@ export default function Page() {
 
     comp = []
     
+    //grabs the mines company
     companies.forEach(com => 
     {
         if (mine.company_name.toLowerCase() == com["name"])
@@ -96,6 +102,7 @@ export default function Page() {
         }
     });
 
+    //checks if mine has image
     let img
           
     if (mine.image_path != undefined && mine.image_path != '' && mine.image_path != 'http://api-image.s3.eu-west-1.amazonaws.com/undefined')

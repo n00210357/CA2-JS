@@ -5,11 +5,12 @@ import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import WorkerItem from '@/components/WorkerItem';
 import { WorkerType } from '@/types';
 
+//the workers page
 export default function Tab() {
   const [workers, setWorkers] = useState([]);
 
   useEffect(() => {
-    
+    //grab all the workers
     axios.get('https://ca-1-js.vercel.app/api/workers')
          .then(response => {
           console.log(response.data);
@@ -21,8 +22,10 @@ export default function Tab() {
 
   }, []);
 
+  //checks if their are any workers
   if(workers.length === 0) return <Text>No Workers found</Text>
   
+  //displays all the workers
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -36,6 +39,7 @@ export default function Tab() {
   );
 }
 
+//the workers page styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

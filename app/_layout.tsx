@@ -2,7 +2,7 @@ import { Stack } from 'expo-router/stack';
 import "@/global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { SessionProvider } from '@/contexts/AuthContext';
-
+//disables most of the headers
 export default function Layout() {
   return (
     <GluestackUIProvider mode="light"><SessionProvider>

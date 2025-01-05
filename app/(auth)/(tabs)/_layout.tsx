@@ -4,6 +4,7 @@ import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { SessionProvider } from '@/contexts/AuthContext';
 import { Stack } from 'expo-router/stack';
 
+//controls what tabs appear
 export default function TabLayout() {
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>

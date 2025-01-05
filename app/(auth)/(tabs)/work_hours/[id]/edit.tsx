@@ -13,6 +13,7 @@ export default function Page() {
     const [work_hour, setWork_hour] = useState<Work_hourType | null>(null);
     const { id } = useLocalSearchParams();
     
+    //grabs a work hour
     useEffect(() => 
     { 
         axios.get(`https://ca-1-js.vercel.app/api/work_hours/${id}`, {
@@ -42,6 +43,7 @@ export default function Page() {
 
     const { putRequest, data, loading, error } = useAPI();
 
+    //changes the work hour
     const handleChange = (e: any) => {
 
         setForm(prevState => ({
@@ -50,11 +52,13 @@ export default function Page() {
         }));
     }
 
+    //edits the work hour
     const handleSubmit = () => {
         console.log(form);
 
         if (work_hour != null)
         {
+            //checks if form points were changed
             if (form.start == null || form.start == '')
             {
                 form.start = work_hour.start
@@ -88,6 +92,7 @@ export default function Page() {
     if(loading === true) return <Text>Loading API...</Text>
     if(!work_hour) return <Text>work hours not found</Text>
 
+    //work hour edit sheet
     return (
         <View>
             <Text>Start</Text>
@@ -141,6 +146,7 @@ export default function Page() {
     );
 }
 
+//work hour styles
 const styles = StyleSheet.create({
     sides: 
     {

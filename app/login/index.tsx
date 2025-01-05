@@ -7,6 +7,7 @@ import { useRouter } from 'expo-router';
 
 const router = useRouter();
 
+//the login pagge
 export default function Tab() 
 {
   const { session, signOut } = useSession();
@@ -49,11 +50,13 @@ export default function Tab()
   );
 }
 
+// a function the brings the user to the home page
 function home()
 {
   router.push('../(auth)/(tabs)/home');
 }
 
+//the login styles
 const styles = StyleSheet.create({
   container: 
   {

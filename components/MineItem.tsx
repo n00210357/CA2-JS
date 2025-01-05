@@ -8,6 +8,7 @@ interface MyProps {
     mine: MineType;
 }
 
+//the mine item
 export default function MineItem({mine}: MyProps){
     return (
         <View style={styles.item}>
@@ -51,6 +52,7 @@ export default function MineItem({mine}: MyProps){
     );
 }
 
+//the styles
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#eaeaea',

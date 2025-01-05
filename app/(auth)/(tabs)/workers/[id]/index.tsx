@@ -12,7 +12,7 @@ export default function Tab() {
   const { session } = useSession();
 
   useEffect(() => {
-    
+    //grabs the worker
     axios.get(`https://ca-1-js.vercel.app/api/workers/${id}`, {
             headers: {
                 Authorization: `Bearer ${session}`
@@ -41,6 +41,7 @@ export default function Tab() {
     img = require('../../../../../assets/images/icon.png')
   }
 
+  //a worker's page
   return (
     <SafeAreaProvider style={styles.container}>
       <Image style={styles.image} source={img}>
@@ -56,6 +57,7 @@ export default function Tab() {
   );
 }
 
+//a worker's style
 const styles = StyleSheet.create({
   sides: 
   {

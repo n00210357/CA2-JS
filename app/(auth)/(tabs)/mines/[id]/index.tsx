@@ -36,6 +36,7 @@ export default function Tab() {
 
   }, [id]);
 
+  //filters through the workers
   useEffect(() => {    
     axios.get('https://ca-1-js.vercel.app/api/workers')
     .then(response => {
@@ -47,6 +48,7 @@ export default function Tab() {
     });  
   }, []);
 
+  //filters through the companies
   useEffect(() => {    
     axios.get('https://ca-1-js.vercel.app/api/companies')
     .then(response => {
@@ -62,6 +64,7 @@ export default function Tab() {
 
   ceo = []
 
+  //grabs the mines worker
   workers.forEach(wor => 
   {
     if (mine.manager_email.toLowerCase() == wor["email"])
@@ -72,6 +75,7 @@ export default function Tab() {
 
   comp = []
 
+  //grabs the mine company
   companies.forEach(com => 
   {
     if (mine.company_name == com["name"])
@@ -80,6 +84,7 @@ export default function Tab() {
     }
   });
 
+  //checks if their is a image
   let img
   
     if (mine.image_path != undefined && mine.image_path != '' && mine.image_path != 'http://api-image.s3.eu-west-1.amazonaws.com/undefined')
@@ -91,6 +96,7 @@ export default function Tab() {
       img = require('../../../../../assets/images/icon.png')
     }
   
+    //a mine's page
     return (
       <View>
           <View style={styles.sides}>
@@ -146,6 +152,7 @@ export default function Tab() {
     );
   }
   
+  //mines styles
   const styles = StyleSheet.create({
     sides: 
     {

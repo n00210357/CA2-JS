@@ -3,6 +3,7 @@ import { Link } from 'expo-router';
 import { Button } from "@/components/ui/button"
 export default function Tab() 
 {
+  //the starting page
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require('../assets/images/icon.png')}>

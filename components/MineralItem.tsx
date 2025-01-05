@@ -8,6 +8,7 @@ interface MyProps {
     mineral: MineralType;
 }
 
+//the mineral item
 export default function MineralItem({mineral}: MyProps){
     return (
         <View style={styles.item}>
@@ -37,6 +38,7 @@ export default function MineralItem({mineral}: MyProps){
     );
 }
 
+//the styles
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#eaeaea',

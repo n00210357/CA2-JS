@@ -10,6 +10,7 @@ import { Link } from 'expo-router';
 export default function Tab() {
   const [mines, setFestivals] = useState([]);
 
+  //grabs all of the mines
   useEffect(() => {
     
     axios.get('https://ca-1-js.vercel.app/api/mines')
@@ -23,6 +24,7 @@ export default function Tab() {
 
   }, []);
 
+  //shows the mines
   if(mines.length === 0) 
       return ( 
       <View style={styles.but}>
@@ -55,6 +57,7 @@ export default function Tab() {
   );
 }
 
+//mine styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

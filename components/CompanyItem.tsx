@@ -8,6 +8,7 @@ interface MyProps {
     company: CompanyType;
 }
 
+//the company item
 export default function CompanyItem({company}: MyProps){
     return (
         <View style={styles.item}>
@@ -41,6 +42,7 @@ export default function CompanyItem({company}: MyProps){
     );
 }
 
+//the styles
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#eaeaea',

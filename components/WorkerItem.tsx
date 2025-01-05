@@ -8,6 +8,7 @@ interface MyProps {
     worker: WorkerType;
 }
 
+//worker item
 export default function WorkerItem({worker}: MyProps){
     return (
         <View style={styles.item}>
@@ -24,7 +25,7 @@ export default function WorkerItem({worker}: MyProps){
 
                 <View>
                     <Text style={styles.headed}>{worker.full_name}</Text>
-
+                    
                     <View style={styles.smallBox}>
                         <Text style={styles.headed}>Email</Text>
                         <Text style={styles.standard}>{worker.email}</Text>
@@ -46,6 +47,7 @@ export default function WorkerItem({worker}: MyProps){
     );
 }
 
+//the styles
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#eaeaea',
