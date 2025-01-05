@@ -1,20 +1,18 @@
 import { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
 import useAPI from '@/hooks/useAPI'
 import { useRouter } from 'expo-router';
 import { Button } from "@/components/ui/button"
 import { Pressable } from '@/components/ui/pressable';
-import * as ImagePicker from "expo-image-picker";
-import * as FileSystem from "expo-file-system";
 
 export default function Page() {
     const router = useRouter();
     const { session } = useSession();
+    
     const [form, setForm] = useState({
-        name: "",
-        description: "",
-        ceo_email: ""
+        mineral_id: "",
+        mine_id: "",
     });
 
     const { postRequest, data, loading, error } = useAPI();
@@ -29,12 +27,12 @@ export default function Page() {
     const handleSubmit = () => {
         console.log(form);
 
-        postRequest('https://ca-1-js.vercel.app/api/companies', form, {
+        postRequest('https://ca-1-js.vercel.app/api/mineral_mines', form, {
             headers: {
                 Authorization: `Bearer ${session}`
             }
         }, (data) => {
-            router.push(`/companies`);
+            router.push(`/home`);
         });
     }
 
@@ -42,31 +40,22 @@ export default function Page() {
     
     return (
         <View>
-            <Text style={styles.bigText}>Name</Text>
+            <Text style={styles.bigText}>Mineral id</Text>
             <TextInput
                 style={styles.input}
-                placeholder='Name'
-                value={form.name}
+                placeholder='Mineral id'
+                value={form.mineral_id}
                 onChange={handleChange}
-                id='name'
-            />
-            
-            <Text style={styles.bigText}>Description</Text>
-            <TextInput
-                style={styles.input}
-                placeholder='Description'
-                value={form.description}
-                onChange={handleChange}
-                id='description'
+                id='mineral_id'
             />
 
-            <Text style={styles.bigText}>Ceo email</Text>
+            <Text style={styles.bigText}>Mine id</Text>
             <TextInput
                 style={styles.input}
-                placeholder='Ceo email'
-                value={form.ceo_email}
+                placeholder='Mine id'
+                value={form.mine_id}
                 onChange={handleChange}
-                id='ceo_email'
+                id='mine_id'
             />
 
             <Text>{error}</Text>

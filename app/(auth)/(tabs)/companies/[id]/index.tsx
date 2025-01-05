@@ -1,15 +1,19 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { useLocalSearchParams } from 'expo-router';
-import { CompanyType } from '@/types';
-import { Button, ButtonText } from "@/components/ui/button"
+import { CompanyType, WorkerType } from '@/types';
+import { Button } from "@/components/ui/button"
 import { Link } from 'expo-router';
+import WorkerItem from '@/components/WorkerItem';
 
 export default function Tab() {
   const [company, setCompany] = useState<CompanyType | null>(null);
+  const [workers, setWorkers] = useState([]);
   const { id } = useLocalSearchParams();
-  
+  let [ceo] = useState([]);
+
   useEffect(() => {
     
     axios.get(`https://ca-1-js.vercel.app/api/companies/${id}`, {
@@ -26,48 +30,92 @@ export default function Tab() {
          });
 
   }, [id]);
+  
+    useEffect(() => {
+      
+    axios.get('https://ca-1-js.vercel.app/api/workers')
+         .then(response => {
+            console.log(response.data);
+            setWorkers(response.data);
+           })
+           .catch(e => {
+            console.log(e);
+           });
+  
+    }, []);
 
   if(!company) return <Text>Company not found</Text>
-  
+
+  ceo = []
+
+  workers.forEach(wor => 
+  {
+    if (company.ceo_email.toLowerCase() == wor["email"])
+    {
+      ceo.push(wor)
+    }
+  });
+
+  let img
+
+  if (company.image_path != undefined && company.image_path != '' && company.image_path != 'http://api-image.s3.eu-west-1.amazonaws.com/undefined')
+  {
+    img = {uri: company?.image_path}
+  }
+  else
+  {
+    img = require('../../../../../assets/images/icon.png')
+  }
+
   return (
-    <View style={styles.container}>
-      <View>
-        <Link href={
-            {
+    <SafeAreaProvider style={styles.container}>
+      <View style={styles.sides}>
+
+        <Link href={{
                 pathname: '/companies/[id]/edit',
-                params: { id: company._id }
-            }}>
-          <Button size="md" variant="solid" action="primary">
-            <ButtonText>Edit</ButtonText>
-          </Button>
+                params: { id: company._id }}} style={styles.border}>
+            <Button style={styles.startBut} variant="solid" action="primary">
+              <Text style={styles.butText2} >   Edit   </Text>
+            </Button>
         </Link>
 
-        <Link href={
-            {
+        <Link href={{
                 pathname: '/companies/[id]/delete',
-                params: { id: company._id }
-            }}>
-          <Button size="md" variant="solid" action="primary">
-            <ButtonText>Delete</ButtonText>
-          </Button>
+                params: { id: company._id }}} style={styles.border}>
+            <Button style={styles.startBut} variant="solid" action="negative">
+              <Text style={styles.butText2} > Delete </Text>
+            </Button>
         </Link>
       </View>
 
-      <Image style={styles.image} source={{
-          uri: company.image_path,
-        }}>
+      <Image style={styles.image} source={img}>
       </Image>
 
-      <Text style={styles.butText2}>{company.name}</Text>
+      <Text style={styles.text}>{company.name}</Text>
 
       <Text>{company.description}</Text>
 
-      <Text>{company.ceo_email}</Text>
-    </View>
+      <Text style={styles.bigText} >The CEO is</Text>
+
+        <SafeAreaView style={styles.container}>
+            <FlatList
+              data={ceo}
+              renderItem={({item}) => <WorkerItem worker={item} />}
+              keyExtractor={(worker: WorkerType) => worker["_id"]}
+            />         
+        </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
+  sides: 
+  {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   container: 
   {
     flex: 1,
@@ -99,12 +147,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 60,
   },
 
+  text:
+  {
+    fontSize: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
+  },
+
   butText2:
   {
     fontSize: 32,
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: 'bold',
+    color: "white"
   },
 
   border:
@@ -114,6 +171,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderColor: "black",
     marginVertical: 10,
+    marginHorizontal: 10,
     },
 
   image:

@@ -3,26 +3,26 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
 import useAPI from '@/hooks/useAPI'
 import { useRouter } from 'expo-router';
-import { CompanyType } from '@/types';
+import { Mineral_mineType } from '@/types';
 import axios from 'axios';
 import { useLocalSearchParams } from 'expo-router';
 import { Button } from "@/components/ui/button"
 import { Pressable } from '@/components/ui/pressable';
 
 export default function Page() {
-    const [company, setCompany] = useState<CompanyType | null>(null);
+    const [mineral_mine, setMineral_mine] = useState<Mineral_mineType | null>(null);
     const { id } = useLocalSearchParams();
     
     useEffect(() => 
     { 
-        axios.get(`https://ca-1-js.vercel.app/api/companies/${id}`, {
+        axios.get(`https://ca-1-js.vercel.app/api/mineral_mines/${id}`, {
             headers: {
                 Authorization: `Bearer ${session}`
             }
         })
              .then(response => {
                 console.log(response.data);
-                setCompany(response.data);
+                setMineral_mine(response.data);
              })
              .catch(e => {
                 console.log(e);
@@ -34,10 +34,8 @@ export default function Page() {
     const { session } = useSession();
     
     const [form, setForm] = useState({
-        name: "",
-        description: "",
-        ceo_email: "",
-        image_path: "",
+        mineral_id: "",
+        mine_id: "",
     });
 
     const { putRequest, data, loading, error } = useAPI();
@@ -53,77 +51,49 @@ export default function Page() {
     const handleSubmit = () => {
         console.log(form);
 
-        if (company != null)
-        {
-            if (form.name == null || form.name == '')
+        if (mineral_mine != null)
+        {    
+            if (form.mineral_id == null || form.mineral_id == '')
             {
-                form.name = company.name
+                form.mineral_id = mineral_mine.mineral_id
             }
     
-            if (form.description == null || form.description == '')
+            if (form.mine_id == null || form.mine_id == '')
             {
-                form.description = company.description
-            }
-
-            if (form.ceo_email == null || form.ceo_email == '')
-            {
-                form.ceo_email = company.ceo_email
-            }
-    
-            if ((company.image_path != null || company.image_path == '') && (form.image_path == null || form.image_path == ''))
-            {
-                form.image_path = company.image_path
+                form.mine_id = mineral_mine.mine_id
             }
         }
 
-        putRequest(`https://ca-1-js.vercel.app/api/companies/${id}`, form, {
+        putRequest(`https://ca-1-js.vercel.app/api/mineral_mines/${id}`, form, {
             headers: {
                 Authorization: `Bearer ${session}`
             }
         }, (data) => {
-            router.push(`/companies/${id}`);
+            router.push(`/mineral_mines/${data._id}`);
         });
     }
 
     if(loading === true) return <Text>Loading API...</Text>
-    if(!company) return <Text>company not found</Text>
+    if(!mineral_mine) return <Text>work hours not found</Text>
 
     return (
         <View>
-            <Text>Name</Text>
+            <Text>mineral id</Text>
             <TextInput
                 style={styles.input}
-                placeholder={company.name}
-                value={form.name}
+                placeholder={mineral_mine.mineral_id}
+                value={form.mineral_id}
                 onChange={handleChange}
-                id='name'
+                id='mineral_id'
             />
 
-            <Text>Description</Text>
+            <Text>Mine id</Text>
             <TextInput
                 style={styles.input}
-                placeholder={company.description}
-                value={form.description}
+                placeholder={mineral_mine.mine_id}
+                value={form.mine_id}
                 onChange={handleChange}
-                id='description'
-            />
-
-            <Text>Ceo email</Text>
-            <TextInput
-                style={styles.input}
-                placeholder={company.ceo_email}
-                value={form.ceo_email}
-                onChange={handleChange}
-                id='ceo_email'
-            />
-
-            <Text>Image path</Text>
-            <TextInput
-                style={styles.input}
-                placeholder={company.image_path}
-                value={form.image_path}
-                onChange={handleChange}
-                id='image_path'
+                id='mine_id'
             />
 
             <Text>{error}</Text>

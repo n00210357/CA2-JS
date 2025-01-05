@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
 import useAPI from '@/hooks/useAPI'
 import { useRouter } from 'expo-router';
 import { Work_hourType } from '@/types';
 import axios from 'axios';
 import { useLocalSearchParams } from 'expo-router';
+import { Button } from "@/components/ui/button"
+import { Pressable } from '@/components/ui/pressable';
 
 export default function Page() {
     const [work_hour, setWork_hour] = useState<Work_hourType | null>(null);
@@ -74,12 +76,12 @@ export default function Page() {
             }
         }
 
-        putRequest(`https://ca-1-js.vercel.app/api/work_hours/${id}`, form, {
+        putRequest(`https://ca-1-js.vercel.app/api/mineral_mines/${id}`, form, {
             headers: {
                 Authorization: `Bearer ${session}`
             }
         }, (data) => {
-            router.push(`/work_hours/${data._id}`);
+            router.push(`/mineral_mines/${data._id}`);
         });
     }
 
@@ -88,7 +90,7 @@ export default function Page() {
 
     return (
         <View>
-            <Text>Starting</Text>
+            <Text>Start</Text>
             <TextInput
                 style={styles.input}
                 placeholder={work_hour.start}
@@ -97,7 +99,7 @@ export default function Page() {
                 id='start'
             />
 
-            <Text>Ending</Text>
+            <Text>End</Text>
             <TextInput
                 style={styles.input}
                 placeholder={work_hour.end}
@@ -106,7 +108,7 @@ export default function Page() {
                 id='end'
             />
 
-            <Text>Mine id</Text>
+            <Text>mine id</Text>
             <TextInput
                 style={styles.input}
                 placeholder={work_hour.mine_id}
@@ -115,7 +117,7 @@ export default function Page() {
                 id='mine_id'
             />
 
-            <Text>Worker email</Text>
+            <Text>Work email</Text>
             <TextInput
                 style={styles.input}
                 placeholder={work_hour.worker_email}
@@ -126,20 +128,92 @@ export default function Page() {
 
             <Text>{error}</Text>
 
-            <Button 
-                onPress={handleSubmit}
-                title="Submit"
-                color="#841584"
-            />
+            <View style={styles.container}>
+                <View style={styles.border}>
+                    <Button style={styles.startBut}>
+                        <Pressable onPress={handleSubmit}>
+                            <Text style={styles.butText2} >    Submit    </Text>
+                        </Pressable>
+                    </Button>
+                </View>
+            </View> 
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        margin: 10,
-        borderWidth: 1,
-        padding: 10
+    sides: 
+    {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  
+    container: 
+    {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  
+    bigText:
+    {
+      fontSize: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontWeight: "bold", 
+    },
+  
+    input: 
+    {
+      height: 40,
+      margin: 10,
+      borderWidth: 1,
+      padding: 10
+    },
+  
+    startBut:
+    {
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingVertical: 40,
+      paddingHorizontal: 60,
+    },
+  
+    text:
+    {
+      fontSize: 32,
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontWeight: 'bold',
+    },
+  
+    butText2:
+    {
+      fontSize: 32,
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontWeight: 'bold',
+      color: "white"
+    },
+  
+    border:
+    {
+      borderWidth:  5,
+      borderStyle: "solid",
+      borderRadius: 12,
+      borderColor: "black",
+      marginVertical: 10,
+      marginHorizontal: 10,
+      },
+  
+    image:
+    {
+      justifyContent: 'center',
+      alignItems: 'center',
+      minWidth: 10,
+      minHeight: 10,
+      maxWidth: 300,
+      maxHeight: 300,
     }
-});
+  });

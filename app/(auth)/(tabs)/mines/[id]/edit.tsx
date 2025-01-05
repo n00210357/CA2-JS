@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
 import useAPI from '@/hooks/useAPI'
 import { useRouter } from 'expo-router';
 import { MineType } from '@/types';
 import axios from 'axios';
 import { useLocalSearchParams } from 'expo-router';
+import { Button } from "@/components/ui/button"
+import { Pressable } from '@/components/ui/pressable';
 
 export default function Page() {
     const [mine, setMine] = useState<MineType | null>(null);
@@ -93,12 +95,6 @@ export default function Page() {
         }, (data) => {
             router.push(`/mines/${id}`);
         });
-
-        // console.log(data);
-
-        // if(data && loading === false){
-        //     router.push(`/mines/${data._id}`);
-        // }
     }
 
     if(loading === true) return <Text>Loading API...</Text>
@@ -162,20 +158,92 @@ export default function Page() {
 
             <Text>{error}</Text>
 
-            <Button 
-                onPress={handleSubmit}
-                title="Submit"
-                color="#841584"
-            />
+            <View style={styles.container}>
+                <View style={styles.border}>
+                    <Button style={styles.startBut}>
+                        <Pressable onPress={handleSubmit}>
+                            <Text style={styles.butText2} >    Submit    </Text>
+                        </Pressable>
+                    </Button>
+                </View>
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        margin: 10,
-        borderWidth: 1,
-        padding: 10
+    sides: 
+    {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  
+    container: 
+    {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  
+    bigText:
+    {
+      fontSize: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontWeight: "bold", 
+    },
+  
+    input: 
+    {
+      height: 40,
+      margin: 10,
+      borderWidth: 1,
+      padding: 10
+    },
+  
+    startBut:
+    {
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingVertical: 40,
+      paddingHorizontal: 60,
+    },
+  
+    text:
+    {
+      fontSize: 32,
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontWeight: 'bold',
+    },
+  
+    butText2:
+    {
+      fontSize: 32,
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontWeight: 'bold',
+      color: "white"
+    },
+  
+    border:
+    {
+      borderWidth:  5,
+      borderStyle: "solid",
+      borderRadius: 12,
+      borderColor: "black",
+      marginVertical: 10,
+      marginHorizontal: 10,
+      },
+  
+    image:
+    {
+      justifyContent: 'center',
+      alignItems: 'center',
+      minWidth: 10,
+      minHeight: 10,
+      maxWidth: 300,
+      maxHeight: 300,
     }
-});
+  });

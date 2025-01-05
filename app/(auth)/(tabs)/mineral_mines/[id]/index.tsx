@@ -2,30 +2,31 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocalSearchParams } from 'expo-router';
-import { WorkerType, MineType, Work_hourType } from '@/types';
-import { Button } from "@/components/ui/button"
+import { Mineral_mineType, MineralType, MineType } from '@/types';
+import { Button, ButtonText} from "@/components/ui/button"
 import { Link } from 'expo-router';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import MineItem from '@/components/MineItem';
-import WorkerItem from '@/components/WorkerItem';
+import MineralItem from '@/components/MineralItem';
 
 export default function Tab() {
-  const [work_hours, setWork_hour] = useState<Work_hourType | null>(null);
-  const [workers, setWorkers] = useState([]);
+  const [mineral_mines, setMineral_mine] = useState<Mineral_mineType | null>(null);
+  const [minerals, setMineral] = useState([]);
   const [mines, setMine] = useState([]);
   const { id } = useLocalSearchParams();
-  let [work] = useState([]);
+  let [miner] = useState([]);
   let [min] = useState([]);
 
   useEffect(() => {
     
-    axios.get(`https://ca-1-js.vercel.app/api/work_hours/${id}`, {
+    axios.get(`https://ca-1-js.vercel.app/api/mineral_mines/${id}`, {
             headers: {
                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vQG1vLm1vIiwiZnVsbF9uYW1lIjoiTW8iLCJfaWQiOiI2NzI4ZjAzMWQ2YzdkYzAwMDhmNmY5ZjAiLCJpYXQiOjE3MzI2MTcwMTZ9.nUztWFux-E-PuU29Czr3WTEqA2PvlU0HYXPSngJ5920'
             }
         })
          .then(response => {
-            setWork_hour(response.data);
+            console.log(response.data);
+            setMineral_mine(response.data);
          })
          .catch(e => {
             console.log(e);
@@ -34,9 +35,10 @@ export default function Tab() {
   }, [id]);
 
   useEffect(() => {    
-          axios.get('https://ca-1-js.vercel.app/api/workers')
+          axios.get('https://ca-1-js.vercel.app/api/minerals')
           .then(response => {
-            setWorkers(response.data);
+            console.log(response.data);
+            setMineral(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -46,6 +48,7 @@ export default function Tab() {
       useEffect(() => {    
           axios.get('https://ca-1-js.vercel.app/api/mines')
           .then(response => {
+              console.log(response.data);
               setMine(response.data);
           })
           .catch(e => {
@@ -53,30 +56,30 @@ export default function Tab() {
           });  
           }, []);
   
-      work = [];
+      miner = [];
       min = [];
 
-  if(!work_hours) return <Text>work hours not found</Text>
+  if(!mineral_mines) return <Text>work hours not found</Text>
   
-  if (work_hours != null && workers != null)
+  if (mineral_mines != null && minerals != null)
     {
-        workers.forEach(minera => {
+        minerals.forEach(minera => {
             
-            if (work_hours.worker_email == minera["email"])
+            if (mineral_mines.mineral_id == minera["_id"])
             {
-                work.push(minera)
+                miner.push(minera)
             }
         });
     }
 
-    if (work_hours != null && mines != null)
+    if (mineral_mines != null && mines != null)
     {
-      mines.forEach(minera => {
-        if (work_hours.mine_id == minera["_id"])
-        {
-          min.push(minera)
-        }
-      });
+        mines.forEach(minera => {
+            if (mineral_mines.mine_id == minera["_id"])
+            {
+                min.push(minera)
+            }
+        });
     }
 
   return (
@@ -84,45 +87,37 @@ export default function Tab() {
           <View style={styles.sides}>
     
             <Link href={{
-                    pathname: '/work_hours/[id]/edit',
-                    params: { id: work_hours._id }}} style={styles.border}>
+                    pathname: '/mineral_mines/[id]/edit',
+                    params: { id: mineral_mines._id }}} style={styles.border}>
                 <Button style={styles.startBut} variant="solid" action="primary">
                   <Text style={styles.butText2} >   Edit   </Text>
                 </Button>
             </Link>
     
             <Link href={{
-                    pathname: '/work_hours/[id]/delete',
-                    params: { id: work_hours._id }}} style={styles.border}>
+                    pathname: '/mineral_mines/[id]/delete',
+                    params: { id: mineral_mines._id }}} style={styles.border}>
                 <Button style={styles.startBut} variant="solid" action="negative">
                   <Text style={styles.butText2} > Delete </Text>
                 </Button>
             </Link>
           </View>
-
-          <View style={styles.sides}>
-          <Text style={styles.text}>Starts</Text>
-          <Text style={styles.bigText}>{work_hours.start}</Text>
-
-          <Text style={styles.text}>Ends</Text>
-          <Text style={styles.bigText}>{work_hours.end}</Text>
-          </View>
-
+  
           <SafeAreaView>
             <FlatList
-              data={work}
-              renderItem={({item}) => <WorkerItem worker={item} />}
-              keyExtractor={(worker: WorkerType) => worker["_id"]}
+              data={miner}
+              renderItem={({item}) => <MineralItem mineral={item} />}
+              keyExtractor={(mineral: MineralType) => mineral["_id"]}
               />         
             </SafeAreaView>
 
-          <SafeAreaView>
+            <SafeAreaView>
             <FlatList
               data={min}
               renderItem={({item}) => <MineItem mine={item} />}
               keyExtractor={(mine: MineType) => mine["_id"]}
               />         
-          </SafeAreaView>
+            </SafeAreaView>
         </SafeAreaProvider>
       );
     }
@@ -172,7 +167,6 @@ export default function Tab() {
         justifyContent: 'center',
         alignItems: 'center',
         fontWeight: 'bold',
-        paddingHorizontal: 10
       },
     
       butText2:
@@ -204,4 +198,3 @@ export default function Tab() {
         maxHeight: 300,
       }
     });
-

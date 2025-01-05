@@ -38,7 +38,7 @@ export interface Work_hourType
 export interface Mineral_mineType 
 {
     _id: string;
-    minde_id: string;
+    mine_id: string;
     mineral_id:string;
 }
 

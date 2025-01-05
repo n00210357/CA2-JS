@@ -3,33 +3,33 @@ import { View, Text, TextInput, StyleSheet, FlatList } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
 import useAPI from '@/hooks/useAPI'
 import { useRouter } from 'expo-router';
-import { WorkerType, MineType, Work_hourType } from '@/types';
+import { Mineral_mineType, MineralType, MineType } from '@/types';
 import axios from 'axios';
 import { useLocalSearchParams } from 'expo-router';
 import { Button, ButtonText } from "@/components/ui/button"
 import { Link } from 'expo-router';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import MineItem from '@/components/MineItem';
-import WorkerItem from '@/components/WorkerItem';
+import MineralItem from '@/components/MineralItem';
 
 export default function Page() {
-    const [work_hour, setWork_hour] = useState<Work_hourType | null>(null);
-    const [workers, setWorkers] = useState([]);
-    const [mines, setMine] = useState([]);
+    const [mineral_mine, setMineral_mine] = useState<Mineral_mineType | null>(null);
     const { id } = useLocalSearchParams();
-    let [work] = useState([]);
+    const [minerals, setMineral] = useState([]);
+    const [mines, setMine] = useState([]);
+    let [miner] = useState([]);
     let [min] = useState([]);
 
     useEffect(() => 
     { 
-        axios.get(`https://ca-1-js.vercel.app/api/work_hours/${id}`, {
+        axios.get(`https://ca-1-js.vercel.app/api/mineral_mines/${id}`, {
             headers: {
                 Authorization: `Bearer ${session}`
             }
         })
              .then(response => {
                 console.log(response.data);
-                setWork_hour(response.data);
+                setMineral_mine(response.data);
              })
              .catch(e => {
                 console.log(e);
@@ -37,25 +37,27 @@ export default function Page() {
     
       }, [id]);
 
-    useEffect(() => {    
-        axios.get('https://ca-1-js.vercel.app/api/workers')
-        .then(response => {
-            setWorkers(response.data);
-        })
-        .catch(e => {
-            console.log(e);
-        });  
-    }, []);
+      useEffect(() => {    
+                axios.get('https://ca-1-js.vercel.app/api/minerals')
+                .then(response => {
+                  console.log(response.data);
+                  setMineral(response.data);
+                })
+                .catch(e => {
+                  console.log(e);
+                });  
+              }, []);
         
-    useEffect(() => {    
-        axios.get('https://ca-1-js.vercel.app/api/mines')
-        .then(response => {
-            setMine(response.data);
-        })
-        .catch(e => {
-            console.log(e);
-        });  
-    }, []);
+      useEffect(() => {    
+                axios.get('https://ca-1-js.vercel.app/api/mines')
+                .then(response => {
+                    console.log(response.data);
+                    setMine(response.data);
+                })
+                .catch(e => {
+                    console.log(e);
+                });  
+        }, []);
 
     const router = useRouter();
     const { session } = useSession();
@@ -63,61 +65,50 @@ export default function Page() {
     const { data, loading, error } = useAPI();
 
     const handleSubmit = () => {
-        axios.delete(`https://ca-1-js.vercel.app/api/work_hours/${id}`,{
+        axios.delete(`https://ca-1-js.vercel.app/api/mineral_mines/${id}`,{
             headers: {
                 Authorization: `Bearer ${session}`
             }
         });
     }
 
-    work = [];
-    min = [];
-
     if(loading === true) return <Text>Loading API...</Text>
 
-    if(!work_hour) return <Text>work hours not found</Text>
+    if(!mineral_mine) return <Text>work hours not found</Text>
 
-    if (work_hour != null && workers != null)
+    miner = [];
+    min = [];
+
+    if (mineral_mine != null && minerals != null)
         {
-            workers.forEach(minera => {
+            minerals.forEach(minera => {
                 
-                if (work_hour.worker_email == minera["email"])
+                if (mineral_mine.mineral_id == minera["_id"])
                 {
-                    work.push(minera)
+                    miner.push(minera)
                 }
             });
         }
     
-        if (work_hour != null && mines != null)
-        {
-          mines.forEach(minera => {
-
-            if (work_hour.mine_id == minera["_id"])
+    if (mineral_mine != null && mines != null)
+    {
+        mines.forEach(minera => {
+            if (mineral_mine.mine_id == minera["_id"])
             {
-              min.push(minera)
+                min.push(minera)
             }
-          });
-        }
+        });
+    }
 
     return (
         <SafeAreaProvider style={styles.container}>
-            <Text style={styles.text}>Are you sure you want to delete this</Text>
-            
-            <View style={styles.sides}>
-                <Text style={styles.text}>Starts</Text>
-                <Text style={styles.bigText}>{work_hour.start}</Text>
-            
-                <Text style={styles.text}>Ends</Text>
-                <Text style={styles.bigText}>{work_hour.end}</Text>
-            </View>
-
-            <Text>{error}</Text>
+            <Text>Are you sure you want to delete this</Text>
 
             <SafeAreaView>
                 <FlatList
-                    data={work}
-                    renderItem={({item}) => <WorkerItem worker={item} />}
-                    keyExtractor={(worker: WorkerType) => worker["_id"]}
+                    data={miner}
+                    renderItem={({item}) => <MineralItem mineral={item} />}
+                    keyExtractor={(mineral: MineralType) => mineral["_id"]}
                 />         
             </SafeAreaView>
             
@@ -129,17 +120,19 @@ export default function Page() {
                 />         
             </SafeAreaView>
 
+            <Text>{error}</Text>
+
             <Link href={{
-                pathname: `/(auth)/(tabs)/home`,
-                params: { id: work_hour._id }}} style={styles.border}>
+                pathname: `/(auth)/(tabs)/minerals`,
+                params: { id: mineral_mine._id }}} style={styles.border}>
                 <Button onPress={handleSubmit} style={styles.startBut} variant="solid" action="negative">
                     <Text style={styles.butText2} >   Delete   </Text>
                 </Button>
             </Link>
                         
             <Link href={{
-                pathname: '/work_hours/[id]',
-                params: { id: work_hour._id }}} style={styles.border}>
+                pathname: '/mineral_mines/[id]',
+                params: { id: mineral_mine._id }}} style={styles.border}>
                 <Button style={styles.startBut} variant="solid" action="primary">
                     <Text style={styles.butText2} > Back </Text>
                 </Button>
@@ -169,7 +162,6 @@ export default function Page() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   fontWeight: "bold", 
-                  paddingHorizontal: 10
                 },
               
                 input: 

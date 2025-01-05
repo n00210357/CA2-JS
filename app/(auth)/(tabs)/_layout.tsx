@@ -11,7 +11,7 @@ export default function TabLayout() {
         name="home/index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="heart" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
         }}
       />
 
@@ -19,7 +19,7 @@ export default function TabLayout() {
         name="minerals/index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="heart" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="diamond" color={color} />,
         }}
       />
 
@@ -27,7 +27,7 @@ export default function TabLayout() {
         name="mines/index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="heart" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="industry" color={color} />,
         }}
       />
 
@@ -35,7 +35,7 @@ export default function TabLayout() {
         name="workers/index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="heart" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="male" color={color} />,
         }}
       />
 
@@ -43,7 +43,7 @@ export default function TabLayout() {
         name="companies/index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="heart" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="eur" color={color} />,
         }}
       />
 
@@ -173,6 +173,34 @@ export default function TabLayout() {
           href: null
          }}
       />
-    </Tabs>
+
+      <Tabs.Screen
+        name="mineral_mines/[id]/delete"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="mineral_mines/[id]/edit"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="mineral_mines/[id]/index"
+        options={{
+          href: null
+         }}
+      />
+
+      <Tabs.Screen
+        name="mineral_mines/create"
+        options={{
+          href: null
+         }}
+      />
+    </Tabs>    
   );
 }
